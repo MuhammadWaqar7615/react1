@@ -5,6 +5,7 @@ import Home from './pages/global/Home'
 import Login from './pages/authPage/Login'
 import Dashboard from './pages/Dashboard'
 import Navbar from './Components/Navbar';
+import Register from './pages/authPage/Register';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         </Route>
 
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
       </Routes>
     </BrowserRouter>
