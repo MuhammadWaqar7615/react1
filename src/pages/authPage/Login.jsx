@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router';
 
 function Login() {
+  const location=useLocation()
+  const params = new URLSearchParams(location.search)
+  console.log("params", params.get('username'));
   const [show, setShow] = useState(false);
   return (
     <div>
