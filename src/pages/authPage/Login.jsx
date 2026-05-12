@@ -21,13 +21,26 @@ function Login() {
     })
   }
 
+  
   const handleSubmit = (e) => {
     e.preventDefault();
+    getData.forEach(element => {
+      if(element.username == paramUsername) {
+        console.log("user verified");
 
+        console.log("element email", element.email)
+        console.log("formData email", formData.email)
 
-    const getEmail = getData.find((user)=> user.email == formData.email);
-    const getPassword = getData.find((user)=> user.password == formData.password)
+        console.log("element password", element.password)
+        console.log("formData pasword", formData.password)
 
+        if((element.email == formData.email) && (element.password == formData.password)) {
+          console.log("email and password of that user verified");
+        } else {
+          console.log("fuck off")
+        }
+      }
+    });
   }
   return (
     <div>
