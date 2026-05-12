@@ -6,8 +6,9 @@ function Login() {
   const params = new URLSearchParams(location.search)
   const [formData, setFormData] = useState({})
 
-  console.log("params", params.get('username'));
-  const userEmail = params.get('email');
+  // console.log("params", params.get('email'));
+  const paramEmail = params.get('email');
+  const paramUsername = params.get('username');
   const [show, setShow] = useState(false);
 
   const getData = JSON.parse(localStorage.getItem("users"));
@@ -23,9 +24,10 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    for(userEmail of getData) {
-      console.log(userEmail)
-    }
+
+    const getEmail = getData.find((user)=> user.email == formData.email);
+    const getPassword = getData.find((user)=> user.password == formData.password)
+
   }
   return (
     <div>
@@ -35,6 +37,7 @@ function Login() {
           <span>
             <input
               type="email"
+              defaultValue={paramEmail}
               name='email'
               onChange={handleChange}
               maxLength={30}
