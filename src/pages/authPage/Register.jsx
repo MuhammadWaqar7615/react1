@@ -4,15 +4,24 @@ import { Link, useNavigate, useSearchParams } from 'react-router';
 function Register() {
     const [hide, setHide] = useState(true);
     const [formData, setFormData] = useState({});
+    const fullnameRef = useRef(null);
+    const usernameRef = useRef(null);
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
     const roleRef = useRef(null);
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
     const searchParams = new URLSearchParams();
     const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-            "role" : roleRef.current.value
+            [fullnameRef.current.name]: fullnameRef.current.value,
+            [usernameRef.current.name]: usernameRef.current.value,
+            [passwordRef.current.name]: passwordRef.current.value,
+            [emailRef.current.name]: emailRef.current.value,
+            [passwordRef.current.name]: passwordRef.current.value,
+            [roleRef.current.name]: roleRef.current.value,
         })
     }
 
@@ -23,12 +32,16 @@ function Register() {
     const handleSubmit = (e) => {
         e.preventDefault();
         try {
-            let data = JSON.parse(localStorage.getItem("users")) || [];
-            data.push(formData);
-            localStorage.setItem("users", JSON.stringify(data))
-            console.log("user data: ", formData)
-            alert("user Registered successfully");
-            navigate(`/login?${params}`)
+            const regUser = users.find((user => user.email == emailRef.current.value));
+            if (!regUser) {
+                users.push(formData);
+                localStorage.setItem("users", JSON.stringify(users))
+                console.log("user data: ", formData)
+                alert("user Registered successfully");
+                navigate(`/login?${params}`)
+            } else {
+                alert('User Already Registered!')
+            }
         } catch (error) {
             alert("user Registered failed");
             console.error(error)
@@ -48,6 +61,7 @@ function Register() {
                                 name='full name'
                                 maxLength={30}
                                 placeholder='Full name'
+                                ref={fullnameRef}
                                 onChange={handleChange}
                                 className='border border-black outline-0 leading-10 w-64 px-3'
                             />
@@ -57,6 +71,7 @@ function Register() {
                                 type="text"
                                 name='username'
                                 maxLength={30}
+                                ref={usernameRef}
                                 placeholder='Username'
                                 onChange={handleChange}
                                 className='border border-black outline-0 leading-10 w-64 px-3'
@@ -68,6 +83,7 @@ function Register() {
                                 name='password'
                                 maxLength={30}
                                 placeholder='Password'
+                                ref={passwordRef}
                                 onChange={handleChange}
                                 className='border border-black outline-0 leading-10 w-64 px-3'
                             />
@@ -81,6 +97,7 @@ function Register() {
                                 name='email'
                                 maxLength={30}
                                 placeholder='Email'
+                                ref={emailRef}
                                 onChange={handleChange}
                                 className='border border-black outline-0 leading-10 w-64 px-3'
                             />
