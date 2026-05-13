@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router';
 
 function Register() {
     const [hide, setHide] = useState(true);
     const [formData, setFormData] = useState({});
+    const roleRef = useRef(null);
     const searchParams = new URLSearchParams();
     const navigate = useNavigate();
-    // const [searchParams, setSearchParams] = useSearchParams();
 
     const handleChange = (e) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value,
+            "role" : roleRef.current.value
         })
     }
 
@@ -25,6 +26,7 @@ function Register() {
             let data = JSON.parse(localStorage.getItem("users")) || [];
             data.push(formData);
             localStorage.setItem("users", JSON.stringify(data))
+            console.log("user data: ", formData)
             alert("user Registered successfully");
             navigate(`/login?${params}`)
         } catch (error) {
@@ -82,6 +84,14 @@ function Register() {
                                 onChange={handleChange}
                                 className='border border-black outline-0 leading-10 w-64 px-3'
                             />
+                        </span>
+                        <span className='flex justify-between border border-black outline-0 leading-10 w-64 px-3'>
+                            <label htmlFor="role" className='text-gray-500'> Role: </label>
+                            <select name="role" id="role" ref={roleRef} required>
+                                <option disabled hidden></option>
+                                <option value="vendor">Vendor</option>
+                                <option value="customer">Customer</option>
+                            </select>
                         </span>
                         <span>
                             <button type="submit" className='bg-blue-800 text-white w-20 cursor-pointer leading-10'>Submit</button>
