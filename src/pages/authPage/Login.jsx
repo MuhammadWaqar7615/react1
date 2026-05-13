@@ -1,47 +1,42 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router';
 
 function Login() {
-  const location=useLocation()
+  const location = useLocation()
   const params = new URLSearchParams(location.search)
-  const [formData, setFormData] = useState({})
-
-  // console.log("params", params.get('email'));
-  const paramEmail = params.get('email');
-  const paramUsername = params.get('username');
   const [show, setShow] = useState(false);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
 
-  const getData = JSON.parse(localStorage.getItem("users"));
-  console.log(getData)
+  const users = JSON.parse(localStorage.getItem("users"));
+  const paramUsername = params.get('username');
+  const paramEmail = params.get('email');
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData, 
-      [e.target.name] : e.target.value,
-    })
-  }
-
+  useEffect(() => {
+      emailRef.current.value = paramEmail;
+  }, [])
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    getData.forEach(element => {
-      if(element.username == paramUsername) {
-        console.log("user verified");
+    console.log("emailRef: ", emailRef.current.value);
+    console.log("passwordRef: ", passwordRef.current.value);
 
-        console.log("element email", element.email)
-        console.log("formData email", formData.email)
+    const currentEmail = emailRef.current.value;
+    const currentPassword = passwordRef.current.value;
 
-        console.log("element password", element.password)
-        console.log("formData pasword", formData.password)
+    const user = users.find((user) => user.email == currentEmail);
 
-        if((element.email == formData.email) && (element.password == formData.password)) {
-          console.log("email and password of that user verified");
-        } else {
-          console.log("fuck off")
-        }
+    if(user) {
+      if(user.password == currentPassword) {
+        window.location.href='/dashboard';
+      } else {
+        console.error("Invalid Password");
       }
-    });
-  }
+    } else {
+      console.error("Invalid Email")
+    }
+  } 
+
   return (
     <div>
       <h1 className='text-2xl text-center my-8'>Login Page</h1>
@@ -50,9 +45,8 @@ function Login() {
           <span>
             <input
               type="email"
-              defaultValue={paramEmail}
               name='email'
-              onChange={handleChange}
+              ref={emailRef}
               maxLength={30}
               placeholder='Email'
               className='border border-black outline-0 leading-10 w-64 px-3'
@@ -63,7 +57,7 @@ function Login() {
               type={show ? "text" : "password"}
               name='password'
               maxLength={30}
-              onChange={handleChange}
+              ref={passwordRef}
               placeholder='Password'
               className='border border-black outline-0 leading-10 w-64 px-3'
             />
