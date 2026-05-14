@@ -24,7 +24,12 @@ function Login() {
     const currentEmail = emailRef.current.value;
     const currentPassword = passwordRef.current.value;
 
-    const user = users.find((user) => user.email == currentEmail);
+    try {
+      const user = users.find((user) => user.email == currentEmail);
+    } catch (error) {
+      console.error("No user Exists");
+      return
+    }
 
     if(user) {
       if(user.password == currentPassword) {
