@@ -14,16 +14,14 @@ function App() {
       <Routes>
 
         <Route element={<Navbar />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Route>
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
       </Routes>
-        <ThemeProvider>
-          <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-        </ThemeProvider>
     </BrowserRouter>
   )
 }
