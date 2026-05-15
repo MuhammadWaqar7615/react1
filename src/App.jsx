@@ -6,7 +6,6 @@ import Login from './pages/authPage/Login'
 import Dashboard from './pages/Dashboard'
 import Navbar from './Components/Navbar';
 import Register from './pages/authPage/Register';
-import { ThemeProvider } from './context/AuthContext';
 
 function App() {
   return (

@@ -1,12 +1,14 @@
 import React, { useContext } from 'react'
-import { ThemeContext } from '../context/AuthContext';
+import { AuthContext } from '../context/AuthContext'
 
-function Dashboard() {
-  const { theme, toggleTheme } = useContext(ThemeContext);
-  return (
-    <div style={{ background: theme === "light" ? "#fff" : "#333", color: theme === "light" ? "#000" : "#fff" }}>
-      <p>Current Theme: {theme}</p>
-      <button onClick={toggleTheme}>Toggle Theme</button>
+function Dashboard({ children }) {
+  const name = useContext(AuthContext);
+  console.log("name: ", name);
+  return(
+    <div>
+      <h1>Dashboard</h1>
+      {console.log("name: ", name)}
+      <p>Hello, my name is: {name}</p>
     </div>
   )
 }
