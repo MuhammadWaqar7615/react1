@@ -6,6 +6,7 @@ import Login from './pages/authPage/Login'
 import Dashboard from './pages/Dashboard'
 import Navbar from './Components/Navbar';
 import Register from './pages/authPage/Register';
+import { ThemeProvider } from './context/AuthContext';
 
 function App() {
   return (
@@ -13,14 +14,16 @@ function App() {
       <Routes>
 
         <Route element={<Navbar />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
         </Route>
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
       </Routes>
+        <ThemeProvider>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </ThemeProvider>
     </BrowserRouter>
   )
 }

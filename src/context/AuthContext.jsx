@@ -1,11 +1,17 @@
-import React from 'react'
+import { createContext, useState } from "react";
 
-function AuthProvider() {
+export const ThemeContext = createContext();
+
+export const ThemeProvider = ({ children }) => {
+  const [theme, setTheme] = useState("light");
+  
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  };
 
   return (
-    <div>
-    </div>
-  )
-}
-
-export default AuthProvider
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
