@@ -15,13 +15,10 @@ function Register() {
     const navigate = useNavigate();
 
     const handleChange = (e) => {
-        setFormData({
-            [fullnameRef.current.name]: fullnameRef.current.value,
-            [usernameRef.current.name]: usernameRef.current.value,
-            [passwordRef.current.name]: passwordRef.current.value,
-            [emailRef.current.name]: emailRef.current.value,
-            [roleRef.current.name]: roleRef.current.value,
-        })
+     setFormData((prev) => ({
+        ...prev,
+        [e.target.name] : e.target.value,
+     }))    
     }
 
     searchParams.set("username", formData.username);
@@ -44,6 +41,9 @@ function Register() {
 
             const regUser = users.find((user => user.email == emailRef.current.value));
             if (!regUser) {
+                const d = new Date();
+                const date = d.getMilliseconds();
+                formData.id = `${formData.username}-${Math.floor(Math.random()*1000)+1000}-${date}`;
                 users.push(formData);
                 localStorage.setItem("users", JSON.stringify(users))
                 console.log("user data: ", formData)
@@ -68,7 +68,7 @@ function Register() {
                         <span>
                             <input
                                 type="text"
-                                name='full name'
+                                name='fullName'
                                 maxLength={30}
                                 placeholder='Full name'
                                 ref={fullnameRef}

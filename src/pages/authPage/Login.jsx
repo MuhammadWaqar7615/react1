@@ -13,9 +13,9 @@ function Login() {
   const paramEmail = params.get('email');
 
   useEffect(() => {
-      emailRef.current.value = paramEmail;
+    emailRef.current.value = paramEmail;
   }, [])
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("emailRef: ", emailRef.current.value);
@@ -26,21 +26,22 @@ function Login() {
 
     try {
       const user = users.find((user) => user.email == currentEmail);
+      if (user) {
+        if (user.password == currentPassword) {
+          sessionStorage.setItem("user-id", user.id);
+          window.location.href = '/dashboard';
+        } else {
+          console.error("Invalid Password");
+        }
+      } else {
+        console.error("Invalid Email")
+      }
     } catch (error) {
       console.error("No user Exists");
       return
     }
 
-    if(user) {
-      if(user.password == currentPassword) {
-        window.location.href='/dashboard';
-      } else {
-        console.error("Invalid Password");
-      }
-    } else {
-      console.error("Invalid Email")
-    }
-  } 
+  }
 
   return (
     <div>
