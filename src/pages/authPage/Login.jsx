@@ -68,7 +68,7 @@ function Login() {
               className='border border-black outline-0 leading-10 w-64 px-3'
             />
             <span onClick={() => setShow(!show)} className='inline-block cursor-pointer relative -translate-x-12'>
-              {show ? "show" : "hide"}
+              {show ? "hide" : "show"}
             </span>
           </span>
           <span>

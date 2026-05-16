@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router'
+import { AuthContext } from '../context/AuthContext';
 
-function Navbar() {
-    const [data, setData] = useState(null);
+function Navbar({ children }) {
+    const {user} = useContext(AuthContext)
+    console.log("userData in navbar: ", user);
     const navigate = useNavigate();
 
     const handleChange = (e) => {

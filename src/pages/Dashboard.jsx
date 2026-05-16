@@ -2,19 +2,13 @@ import React, { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
 
 function Dashboard({ children }) {
-  const userData = useContext(AuthContext);
-  console.log("User: ", userData)
+  const {user} = useContext(AuthContext);
+  console.log("dashboard User: ", user)
   return(
     <div>
-      <span>Welcome back</span> 
-      <p>This is Dashboard</p>
+      <span>Welcome back{user?.fullName}</span> 
+      <p>This is Dashboard Page</p>
     </div>
-
-    // <div>
-    //   {userData.map((user) => (
-    //     <p>users: {user.username}</p>
-    //   ))}
-    // </div>
   )
 }
 
