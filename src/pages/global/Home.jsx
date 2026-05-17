@@ -20,14 +20,13 @@ function Home() {
         getData();
     }, []);
 
-    console.log("products: ", products)
     return (
         <div>
             <h1 className='text-2xl text-center my-8'>Home Page</h1>
             <div className='flex flex-wrap justify-center gap-3'>
                 {products && (
                     products.products.map((prod) => (
-                        <div className='w-58 h-[300px] border border-black'>
+                        <div key={prod?.id} className='w-58 h-[300px] border border-black'>
                             <div className='overflow-hidden flex'>
                                 <img src={prod.images[0]} alt="" className='w-full h-full bg-contain' />
                             </div>
