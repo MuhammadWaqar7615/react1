@@ -1,3 +1,4 @@
+//dropdown issue
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, Outlet, useLocation, useNavigate, useSearchParams } from 'react-router'
 import { AuthContext } from '../context/AuthContext';
@@ -27,7 +28,7 @@ function Navbar({ children }) {
             setUserStatus("Guest");
             setStatus("login")
         }
-    }, [user])
+    }, [])
 
 
     return (
@@ -50,7 +51,7 @@ function Navbar({ children }) {
                                 </Link>
                             </span>
                             <span className='cursor-pointer w-full px-1 bg-amber-100 border border-amber-300'>
-                                <Link to={`/`}>
+                                <Link to={`${showDashboard == "dashboard" ? "/dashboard" : "/"}`}>
                                     {showDashboard}
                                 </Link>
                             </span>
