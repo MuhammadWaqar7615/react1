@@ -14,7 +14,8 @@ function Home() {
                 setProducts(result)
                 // console.log("setProducts: ", setProducts);
             } catch (error) {
-                console.error(error);
+                // console.error(error);
+                console.error("products Not found: ", error)
             }
         }
         getData();
@@ -24,7 +25,7 @@ function Home() {
         <div>
             <h1 className='text-2xl text-center my-8'>Home Page</h1>
             <div className='flex flex-wrap justify-center gap-3'>
-                {products && (
+                {products ? (
                     products.products.map((prod) => (
                         <div key={prod?.id} className='w-58 h-[300px] border border-black'>
                             <div className='overflow-hidden flex'>
@@ -36,7 +37,7 @@ function Home() {
                             </div>
                         </div>
                     ))
-                )}
+                ) : <div>Products Not found!</div>}
             </div>
         </div>
     )
