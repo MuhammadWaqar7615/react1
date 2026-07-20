@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   const userSSId = sessionStorage.getItem("user-id") || null;
 
   const user = users.find((user) => user.id === userSSId);  
-  // console.log("user in AuthContext: ", user)
+  // console.log("user in AuthContext: ", user);
 
   return (
     <AuthContext.Provider value={{ users, userSSId, user }}>
